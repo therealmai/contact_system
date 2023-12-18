@@ -51,7 +51,6 @@ $contacts = $result->fetch_all(MYSQLI_ASSOC);
                         </button>
                     </div>
                     <div class="modal-body">
-                        <!-- Add Contact Form Goes Here -->
                         <form action="../../app/add_contact.php" method="post">
                             <div class="form-group">
                                 <label for="name">Name:</label>
@@ -98,7 +97,7 @@ $contacts = $result->fetch_all(MYSQLI_ASSOC);
                     <th>Actions</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="contactTableBody">
                 <?php foreach ($contacts as $contact): ?>
                     <tr>
                         <td>
@@ -195,10 +194,23 @@ $contacts = $result->fetch_all(MYSQLI_ASSOC);
                             </div>
                         </div>
                     </div>
-
                 <?php endforeach; ?>
             </tbody>
         </table>
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                <?php
+                $contactsPerPage = 3;
+                $totalContacts = count($contacts);
+                $totalPages = ceil($totalContacts / $contactsPerPage);
+
+                for ($i = 1; $i <= $totalPages; $i++) {
+                    echo '<li class="page-item"><a class="page-link" href="#" data-page="' . $i . '">' . $i . '</a></li>';
+                }
+                ?>
+
+            </ul>
+        </nav>
     </div>
 
 
@@ -208,20 +220,31 @@ $contacts = $result->fetch_all(MYSQLI_ASSOC);
 
     <script>
         $(document).ready(function () {
+            loadContactPage(1);
+            $(".pagination a").click(function (e) {
+                e.preventDefault();
+                var page = $(this).data("page");
+                loadContactPage(page);
+            });
+
             $("#searchButton").click(function () {
+                loadContactPage(1);
+            });
+
+
+            function loadContactPage(page) {
                 var searchValue = $("#searchInput").val();
                 $.ajax({
                     url: "search_contacts.php",
                     method: "POST",
-                    data: { search: searchValue },
+                    data: { search: searchValue, page: page },
                     success: function (data) {
-                        $("#contactTable tbody").html(data);
+                        $("#contactTableBody").html(data);
                     }
                 });
-            });
+            }
         });
     </script>
-
 </body>
 
 </html>
