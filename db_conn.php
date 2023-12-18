@@ -1,17 +1,14 @@
 <?php
+// Database connection (replace with your actual database credentials)
+$servername = "localhost";
+$db_username = "root";
+$db_password = "";
+$database = "contact_system";
 
-const HOST = 'localhost';
-define('DB_NAME', 'contact_system');
-define('USERNAME', 'root');
-const PASSWORD ='';
+$conn = new mysqli($servername, $db_username, $db_password, $database);
 
-
-// try{
-    $mysqli = new mysqli(HOST,USERNAME,PASSWORD,DB_NAME);
-    // $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-    if ($mysqli -> connect_errno) {
-        echo "Failed to connect to MySQL: " . $mysqli -> connect_error;
-        exit();
-    }
-
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 ?>
