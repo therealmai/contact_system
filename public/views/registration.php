@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,16 +9,23 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
 </head>
+
 <body>
     <div class="container mt-5">
         <div class="col-md-6 offset-md-3">
             <form action="../../app/registration.php" method="post">
                 <h2 class="mb-4">Registration</h2>
                 <?php
-                    // Display error message if it exists
-                    if (isset($error)) {
-                        echo '<div class="alert alert-danger" role="alert">' . $error . '</div>';
-                    }
+                // Display error message if authentication fails
+                if (isset($_GET['error']) && $_GET['error'] == '1') {
+                    echo '<div class="alert alert-danger" role="alert">Email already exist</div>';
+                }
+                ?>
+                <?php
+                // Display error message if authentication fails
+                if (isset($_GET['error']) && $_GET['error'] == '2') {
+                    echo '<div class="alert alert-danger" role="alert">Password and Confirm Password dont match</div>';
+                }
                 ?>
                 <div class="form-group">
                     <label for="username">Username:</label>
@@ -41,4 +49,5 @@
         </div>
     </div>
 </body>
+
 </html>

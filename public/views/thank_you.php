@@ -1,3 +1,7 @@
+<?php
+session_start(); // Start the session
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +17,7 @@
                 <h4 class="alert-heading">Thank You!</h4>
                 <p>Your registration was successful.</p>
                 <hr>
-                <p class="mb-0">Click <a href=".php">here</a> to continue.</p>
+                <p class="mb-0">Click <a href="contact.php">here</a> to continue.</p>
             </div>
         </div>
     </div>

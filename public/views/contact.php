@@ -2,10 +2,6 @@
 session_start();
 include 'header.php';
 
-if (!isset($_SESSION['user_id'])) {
-    header('Location: index.php');
-    exit;
-}
 require_once '../../db_conn.php';
 
 
