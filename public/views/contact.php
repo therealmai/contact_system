@@ -8,14 +8,14 @@ if (!isset($_SESSION['user_id'])) {
 }
 require_once '../../db_conn.php';
 
-// Assume $user_id is the ID of the currently logged-in user
+
 $user_id = $_SESSION['user_id'];
 
-// Fetch contacts associated with the current user
+
 $sql = "SELECT * FROM contacts WHERE user_id = $user_id";
 $result = $conn->query($sql);
 
-// Fetch contacts as an associative array
+
 $contacts = $result->fetch_all(MYSQLI_ASSOC);
 ?>
 
@@ -140,7 +140,7 @@ $contacts = $result->fetch_all(MYSQLI_ASSOC);
                                 </div>
                                 <div class="modal-body">
                                     <!-- Edit Contact Form Goes Here -->
-                                    <form action="edit_contact.php" method="post">
+                                    <form action="../../app/edit_contact.php" method="post">
                                         <input type="hidden" name="contact_id" value="<?php echo $contact['id']; ?>">
                                         <div class="form-group">
                                             <label for="edit_name">Name:</label>
