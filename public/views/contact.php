@@ -80,13 +80,14 @@ $contacts = $result->fetch_all(MYSQLI_ASSOC);
         <h2>Contact List</h2>
 
         <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Search contacts">
+            <input type="text" class="form-control" id="searchInput" placeholder="Search contacts">
             <div class="input-group-append">
-                <button class="btn btn-outline-secondary" type="button">Search</button>
+                <button class="btn btn-outline-secondary" type="button" id="searchButton">Search</button>
             </div>
         </div>
 
-        <table class="table">
+        <table class="table" id="contactTable">
+
             <thead>
                 <tr>
                     <th>ID</th>
@@ -121,8 +122,10 @@ $contacts = $result->fetch_all(MYSQLI_ASSOC);
                                 data-target="#editContactModal<?php echo $contact['id']; ?>">
                                 Edit
                             </button>
-                            <a href="delete_contact.php?id=<?php echo $contact['id']; ?>"
-                                class="btn btn-danger btn-sm">Delete</a>
+                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
+                                data-target="#deleteContactModal<?php echo $contact['id']; ?>">
+                                Delete
+                            </button>
                         </td>
                     </tr>
 
@@ -169,19 +172,56 @@ $contacts = $result->fetch_all(MYSQLI_ASSOC);
                         </div>
                     </div>
 
+                    <!-- Delete Contact Modal -->
+                    <div class="modal fade" id="deleteContactModal<?php echo $contact['id']; ?>" tabindex="-1" role="dialog"
+                        aria-labelledby="deleteContactModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="deleteContactModalLabel">Confirm Deletion</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    Are you sure you want to delete the contact:
+                                    <?php echo $contact['name']; ?>?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                    <a href="../../app/delete_contact.php?id=<?php echo $contact['id']; ?>"
+                                        class="btn btn-danger">Delete</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 <?php endforeach; ?>
             </tbody>
         </table>
     </div>
 
 
-
-
-
-
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $("#searchButton").click(function () {
+                var searchValue = $("#searchInput").val();
+                $.ajax({
+                    url: "search_contacts.php",
+                    method: "POST",
+                    data: { search: searchValue },
+                    success: function (data) {
+                        $("#contactTable tbody").html(data);
+                    }
+                });
+            });
+        });
+    </script>
+
 </body>
 
 </html>
