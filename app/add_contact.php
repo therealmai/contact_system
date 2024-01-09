@@ -10,10 +10,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $phone = $_POST['phone'];
     $email = $_POST['email'];
 
+  
+
     $sql = "INSERT INTO contacts (user_id, name, company, phone, email) VALUES ('$user_id', '$name', '$company', '$phone', '$email')";
     $conn->query($sql);
 
-    
+
     header('Location: ../public/views/contact.php');
     exit;
 }

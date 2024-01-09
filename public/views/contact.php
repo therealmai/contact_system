@@ -47,7 +47,7 @@ $contacts = $result->fetch_all(MYSQLI_ASSOC);
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form action="../../app/add_contact.php" method="post">
+                        <form action="../../app/add_contact.php" method="post" accept-charset= "UTF-8">
                             <div class="form-group">
                                 <label for="name">Name:</label>
                                 <input type="text" class="form-control" id="name" name="name" required>
@@ -96,9 +96,7 @@ $contacts = $result->fetch_all(MYSQLI_ASSOC);
             <tbody id="contactTableBody">
                 <?php foreach ($contacts as $contact): ?>
                     <tr>
-                        <td>
-                            <?php echo $contact['id']; ?>
-                        </td>
+                
                         <td>
                             <?php echo $contact['name']; ?>
                         </td>
@@ -166,7 +164,7 @@ $contacts = $result->fetch_all(MYSQLI_ASSOC);
                             </div>
                         </div>
                     </div>
-
+// comment
                     <!-- Delete Contact Modal -->
                     <div class="modal fade" id="deleteContactModal<?php echo $contact['id']; ?>" tabindex="-1" role="dialog"
                         aria-labelledby="deleteContactModalLabel" aria-hidden="true">
