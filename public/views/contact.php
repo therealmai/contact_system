@@ -164,7 +164,7 @@ $contacts = $result->fetch_all(MYSQLI_ASSOC);
                             </div>
                         </div>
                     </div>
-// comment another rest day
+// comment another rest day sdf
                     <!-- Delete Contact Modal -->
                     <div class="modal fade" id="deleteContactModal<?php echo $contact['id']; ?>" tabindex="-1" role="dialog"
                         aria-labelledby="deleteContactModalLabel" aria-hidden="true">
